@@ -1,0 +1,14 @@
+.nav {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.link {
+  padding: 10px;
+  color: #000;
+}
+
+.activeLink {
+  color: red;
+}
