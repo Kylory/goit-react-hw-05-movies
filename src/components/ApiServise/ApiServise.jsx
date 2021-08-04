@@ -7,13 +7,14 @@ const API_OPTIONS = {
   API_KEY: "75ca290b8be3cd62eb0cb9206dc4c97a",
 };
 
-const fetchTrending = () => {
+async function fetchTrending() {
   const { BASE_URL, API_KEY, MEDIA_TYPE, TIME_WINDOW } = API_OPTIONS;
   console.log("fetchTrending", Date.now());
-  return axios.get(
+  const response = await axios.get(
     `${BASE_URL}/${MEDIA_TYPE}/${TIME_WINDOW}?api_key=${API_KEY}`
   );
-};
+  return response.data.results;
+}
 
 export { fetchTrending };
 // https://developers.themoviedb.org/3/trending/get-trending - список самых популярных фильмов на сегодня для создания коллекции на главной странице.

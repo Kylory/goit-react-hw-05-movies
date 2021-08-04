@@ -8,7 +8,6 @@ const App = () => {
   return (
     <>
       <Navigation />
-
       <Switch>
         <Route path="/" exact>
           <HomeView />

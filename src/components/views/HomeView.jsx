@@ -4,11 +4,25 @@ import { fetchTrending } from "../ApiServise/ApiServise";
 const HomeView = () => {
   const [stateTrending, setStateTrending] = useState([]);
 
-  fetchTrending().then((response) => console.log(response, Date.now()));
+  useEffect(() => {
+    fetchTrending().then((response) => setStateTrending(response));
+  }, []);
 
   return (
     <>
       <div>HomeView</div>
+      {/* <ul>
+        {stateTrending.map(({ id, webformatURL, largeImageURL, tags }) => (
+          <li className="ImageGalleryItem" key={id}>
+            <img
+              src={webformatURL}
+              alt={tags}
+              largeimageurl={largeImageURL}
+              className="ImageGalleryItem-image"
+            />
+          </li>
+        ))}
+      </ul> */}
     </>
   );
 };
