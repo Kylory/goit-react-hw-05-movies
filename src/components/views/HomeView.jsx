@@ -1,29 +1,24 @@
 import { useState, useEffect } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 import { fetchTrending } from "../ApiServise/ApiServise";
 
 const HomeView = () => {
-  const [stateTrending, setStateTrending] = useState([]);
+  // const { url } = useRouteMatch();
+  const [stateTrending, setStateTrending] = useState();
 
   useEffect(() => {
     fetchTrending().then((response) => setStateTrending(response));
   }, []);
 
   return (
-    <>
-      <div>HomeView</div>
-      {/* <ul>
-        {stateTrending.map(({ id, webformatURL, largeImageURL, tags }) => (
-          <li className="ImageGalleryItem" key={id}>
-            <img
-              src={webformatURL}
-              alt={tags}
-              largeimageurl={largeImageURL}
-              className="ImageGalleryItem-image"
-            />
+    <ul>
+      {stateTrending &&
+        stateTrending.map(({ id, title }) => (
+          <li key={id}>
+            <Link to={`/movies/${id}`}>{title}</Link>
           </li>
         ))}
-      </ul> */}
-    </>
+    </ul>
   );
 };
 
