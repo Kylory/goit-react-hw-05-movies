@@ -1,12 +1,10 @@
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { fetchMovieByQuery } from "../ApiServise/ApiServise";
 
 const MoviesView = () => {
   const [stateQuery, setStateQuery] = useState("");
-  const [stateActors, setStateActors] = useState([]);
-  // const url = useParams();
-  // console.log(url);
+  const [stateMovies, setStateMovies] = useState([]);
 
   const onChangeQuery = (e) => {
     setStateQuery(e.target.value);
@@ -14,15 +12,17 @@ const MoviesView = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(stateQuery);
-    fetchMovieByQuery(stateQuery).then((response) => setStateActors(response));
+    fetchMovieByQuery(stateQuery)
+      .then((response) => setStateMovies(response))
+      .finally(reset());
   };
 
-  const location = useLocation();
-  // console.log(location);
+  const reset = () => {
+    setStateQuery("");
+  };
+
   return (
     <>
-      <div>MoviesView {location.pathname}</div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -34,8 +34,8 @@ const MoviesView = () => {
         <button type="submit">Search</button>
       </form>
       <ul>
-        {stateActors !== "" &&
-          stateActors.map(({ id, original_title }) => (
+        {stateMovies !== "" &&
+          stateMovies.map(({ id, original_title }) => (
             <li key={id}>
               <Link to={`/movies/${id}`}>{original_title}</Link>
             </li>

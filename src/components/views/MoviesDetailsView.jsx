@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
-import { useParams, NavLink, useRouteMatch, Route } from "react-router-dom";
-import { fetchMovie, FetchMovieCast } from "../ApiServise/ApiServise";
+import {
+  useParams,
+  NavLink,
+  useRouteMatch,
+  Route,
+  useHistory,
+  // useLocation,
+} from "react-router-dom";
+import { fetchMovie } from "../ApiServise/ApiServise";
+import CastView from "./CastView";
+import ReviewsView from "./ReviewsView";
 
 const MoviesView = () => {
   const [stateMovie, setStateMovie] = useState();
-  // const [stateMovieCast, setStateMovieCast] = useState();
-  // const [stateIsLoadCast, setStateIsLoadCast] = useState(false);
 
   const { movieId } = useParams();
   const { url } = useRouteMatch();
@@ -14,33 +21,21 @@ const MoviesView = () => {
     fetchMovie(movieId).then((response) => setStateMovie(response));
   }, [movieId]);
 
-  // const onFetchMovieCast = () => {
-  //   console.log("onFetchMovieCast");
+  const history = useHistory();
+  // const location = useLocation();
+  // const CLhistory = () => {
+  //   console.log(history);
+  //   console.log(location);
   // };
-  // useEffect(() => {
-  //   FetchMovieCast(movieId).then((response) => setStateMovieCast(response));
-  // }, []);
-
-  // const FetchMovieCast1 = () => {
-  //   console.log(movieId);
-  //   FetchMovieCast(movieId).then((response) => setStateMovieCast(response));
-  //   // return movieId;
-  // };
-
-  // const FetchMovieCast1 = () => {
-  //   // setStateIsLoadCast(true);
-  //   console.log("hello");
-  // };
-
-  // useEffect(() => {
-  //   FetchMovieCast(movieId).then((response) => setStateMovieCast(response));
-  // }, [stateIsLoadCast]);
-
-  // const { title, vote_average, overview, genres } = stateMovie;
+  const goBack = () => {
+    history.goBack();
+  };
 
   return (
     <>
-      <button type="button">Go back</button>
+      <button type="button" onClick={goBack}>
+        Go back
+      </button>
       {stateMovie && (
         <section>
           <img
@@ -62,10 +57,13 @@ const MoviesView = () => {
           <NavLink to={`${url}/reviews`}>Reviews</NavLink>
         </section>
       )}
+      {/* <Route path={`${url}/cast`} component={showCast}></Route> */}
       <Route path={`${url}/cast`}>
-        <FetchMovieCast movieId={movieId} />
+        <CastView movieId={movieId} />
       </Route>
-      <Route path={`${url}/reviews`}></Route>
+      <Route path={`${url}/reviews`}>
+        <ReviewsView movieId={movieId} />
+      </Route>
     </>
   );
 };

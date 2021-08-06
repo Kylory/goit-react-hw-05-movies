@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { fetchTrending } from "../ApiServise/ApiServise";
 
 const HomeView = () => {
-  // const { url } = useRouteMatch();
   const [stateTrending, setStateTrending] = useState();
 
   useEffect(() => {
@@ -11,14 +10,17 @@ const HomeView = () => {
   }, []);
 
   return (
-    <ul>
-      {stateTrending &&
-        stateTrending.map(({ id, title }) => (
-          <li key={id}>
-            <Link to={`/movies/${id}`}>{title}</Link>
-          </li>
-        ))}
-    </ul>
+    <>
+      <h2>Trending today</h2>
+      <ul>
+        {stateTrending &&
+          stateTrending.map(({ id, title }) => (
+            <li key={id}>
+              <Link to={`/movies/${id}`}>{title}</Link>
+            </li>
+          ))}
+      </ul>
+    </>
   );
 };
 
