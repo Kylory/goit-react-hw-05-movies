@@ -10,5 +10,3 @@ netlify login
 //homepage видалити
 
 deploy - залити на хостінг оновлену версію
-
-API_KEY = '75ca290b8be3cd62eb0cb9206dc4c97a'

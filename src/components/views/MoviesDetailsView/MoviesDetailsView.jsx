@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import {
   useParams,
   NavLink,
@@ -8,9 +8,15 @@ import {
   useLocation,
 } from "react-router-dom";
 import { fetchMovie } from "../../ApiServise/ApiServise";
-import CastView from "../CastView/CastView";
-import ReviewsView from "../ReviewsView/ReviewsView";
+
 import styles from "./MoviesDetailsView.module.css";
+
+const CastView = lazy(() =>
+  import("../CastView/CastView" /*webpackChunkName: "cast-view" */)
+);
+const ReviewsView = lazy(() =>
+  import("../ReviewsView/ReviewsView" /*webpackChunkName: "reviews-view" */)
+);
 
 const MoviesView = () => {
   const [stateMovie, setStateMovie] = useState();
@@ -84,14 +90,16 @@ const MoviesView = () => {
           <hr />
         </section>
       )}
-      <Route
-        path={`${url}/cast`}
-        render={() => <CastView movieId={movieId} />}
-      ></Route>
-      <Route
-        path={`${url}/reviews`}
-        render={() => <ReviewsView movieId={movieId} />}
-      ></Route>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Route
+          path={`${url}/cast`}
+          render={() => <CastView movieId={movieId} />}
+        ></Route>
+        <Route
+          path={`${url}/reviews`}
+          render={() => <ReviewsView movieId={movieId} />}
+        ></Route>
+      </Suspense>
     </>
   );
 };
