@@ -22,7 +22,9 @@ const ReviewsView = ({ movieId }) => {
           </li>
         ))
       ) : (
-        <p>We don't have any reviews for this movie</p>
+        <p className={styles.noReviews}>
+          We don't have any reviews for this movie
+        </p>
       )}
     </ul>
   );

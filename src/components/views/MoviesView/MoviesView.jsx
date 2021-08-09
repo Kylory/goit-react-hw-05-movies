@@ -32,12 +32,6 @@ const MoviesView = () => {
     history.push({ ...location, search: `query=${stateQuery}` });
   };
 
-  // const fetch = (query) => {
-  //   fetchMovieByQuery(query)
-  //     .then((response) => setStateMovies(response))
-  //     .finally(reset());
-  // };
-
   const reset = () => {
     setStateQuery("");
   };

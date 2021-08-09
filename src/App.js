@@ -29,7 +29,7 @@ const Navigation = lazy(() =>
 );
 const NotFoundView = lazy(() =>
   import(
-    "./components/views/NotFoundView" /*webpackChunkName: "not-found-view" */
+    "./components/views/NotFoundView/NotFoundView" /*webpackChunkName: "not-found-view" */
   )
 );
 

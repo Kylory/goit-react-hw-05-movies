@@ -24,7 +24,6 @@ const MoviesView = () => {
   const { movieId } = useParams();
   const { url } = useRouteMatch();
   const { state } = useLocation();
-  // const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
@@ -41,7 +40,6 @@ const MoviesView = () => {
         search: state.from.search,
       });
     }
-    // console.log("goBack", location);
   };
 
   return (
@@ -53,7 +51,11 @@ const MoviesView = () => {
         <section className={styles.section}>
           <div className={styles.wrapper}>
             <img
-              src={`https://image.tmdb.org/t/p/w200${stateMovie.poster_path}`}
+              src={
+                stateMovie.poster_path
+                  ? `https://image.tmdb.org/t/p/w200${stateMovie.poster_path}`
+                  : "https://dummyimage.com/200x300/b3b3b3/fff.jpg&text=No+image"
+              }
               alt={stateMovie.title}
             />
             <div className={styles.description}>
@@ -69,25 +71,27 @@ const MoviesView = () => {
               </ul>
             </div>
           </div>
-          <hr />
-          <NavLink
-            to={{
-              pathname: `${url}/cast`,
-              state: { ...state },
-            }}
-          >
-            Cast
-          </NavLink>
-          <br />
-          <NavLink
-            to={{
-              pathname: `${url}/reviews`,
-              state: { ...state },
-            }}
-          >
-            Reviews
-          </NavLink>
-          <hr />
+          <div className={styles.subMenu}>
+            <p>Additional information</p>
+            <NavLink
+              className={styles.cast}
+              to={{
+                pathname: `${url}/cast`,
+                state: { ...state },
+              }}
+            >
+              Cast
+            </NavLink>
+            <NavLink
+              className={styles.reviews}
+              to={{
+                pathname: `${url}/reviews`,
+                state: { ...state },
+              }}
+            >
+              Reviews
+            </NavLink>
+          </div>
         </section>
       )}
       <Suspense fallback={<div>Loading...</div>}>
