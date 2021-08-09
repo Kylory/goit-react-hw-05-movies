@@ -1,7 +1,7 @@
 import { Switch, Route } from "react-router-dom";
-import HomeView from "../src/components/views/HomeView";
-import MoviesView from "./components/views/MoviesView";
-import MoviesDetailsView from "./components/views/MoviesDetailsView";
+import HomeView from "../src/components/views/HomeView/HomeView";
+import MoviesView from "./components/views/MoviesView/MoviesView";
+import MoviesDetailsView from "./components/views/MoviesDetailsView/MoviesDetailsView";
 import Navigation from "./components/Navigation/Navigation";
 import NotFoundView from "./components/views/NotFoundView";
 

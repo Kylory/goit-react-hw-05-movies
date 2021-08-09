@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { FetchMovieReviews } from "../ApiServise/ApiServise";
+import PropTypes from "prop-types";
+import { FetchMovieReviews } from "../../ApiServise/ApiServise";
+import styles from "./ReviewsView.module.css";
 
 const ReviewsView = ({ movieId }) => {
   const [stateReviews, setStateReviews] = useState([]);
@@ -11,11 +13,11 @@ const ReviewsView = ({ movieId }) => {
   }, [movieId]);
 
   return (
-    <ul>
+    <ul className={styles.reviews}>
       {stateReviews.length > 0 ? (
         stateReviews.map(({ id, author, content }) => (
           <li key={id}>
-            <h2>Author: {author}</h2>
+            <h2 className={styles.author}>Author: {author}</h2>
             <p>{content}</p>
           </li>
         ))
@@ -24,6 +26,10 @@ const ReviewsView = ({ movieId }) => {
       )}
     </ul>
   );
+};
+
+ReviewsView.propTypes = {
+  movieId: PropTypes.string.isRequired,
 };
 
 export default ReviewsView;
